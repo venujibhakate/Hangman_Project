@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-// import GameImage from './game.js';
-import HangmanGame from './keyboard'
+import HangmanGame from './hangman'
 
 
 function App() {
