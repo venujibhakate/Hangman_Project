@@ -16,29 +16,35 @@ var alphabets = "abcdefghijklmnopqrstuvwxyz".split("");
 class HangmanImage extends Component {
 	constructor(props) {
 		super(props);
+		var LeftWord = newGuessWord();
 		this.state = {
 			lifes: images.length - 1,
-			secretWord: newGuessWord(),
+			secretWord: LeftWord,
 			alreadySelectedAlphabets: "",
-			filterWord: newGuessWord(),
+			filterWord: LeftWord,
 		}
 	};
 	handleAplhabetClick = alphabet => {
 		this.setState(prevState => ({
 			alreadySelectedAlphabets: prevState.alreadySelectedAlphabets + alphabet,
 			lifes: this.state.secretWord.includes(alphabet) ? prevState.lifes : prevState.lifes - 1,
+			filterWord:word,
+			selectedWordLength: word.length
 
 		}));
 
+		const word = this.state.filterWord.replace(new RegExp(alphabet, 'g'), '');
+		// console.log(word)
 	}
 
 	handleReset = () => {
+		var LeftWord = newGuessWord();
 		this.setState({
 			lifes: images.length - 1,
-			secretWord: newGuessWord(),
+			secretWord:LeftWord,
 			alreadySelectedAlphabets: "",
-			filterWord: newGuessWord(),
-			selected_LeterLength: newGuessWord().length,
+			filterWord:LeftWord,
+			selectedWordLength:LeftWord.length,
 		});
 	};
 
@@ -73,8 +79,8 @@ class HangmanImage extends Component {
 
 				<div class="arrange_button">
 					{this.state.lifes === 0 ? <p>You Lost</p> : null}
-					{this.state.selected_LeterLength === 0 ? <p>You Won</p> : null}
-					{this.state.lifes === 0 || this.state.selected_LeterLength === 0
+					{this.state.selectedWordLength === 0 ? <p>You Won</p> : null}
+					{this.state.lifes === 0 || this.state.selectedWordLength === 0
 						? null
 						: alphabets.map(alphabet => (
 							<button
